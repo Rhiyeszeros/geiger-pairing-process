@@ -16,10 +16,13 @@ import com.geiger.toolbox.ui.components.DeviceList;
 import com.geiger.toolbox.ui.components.DeviceListElement;
 import com.geiger.toolbox.util.Colors;
 import com.geiger.toolbox.util.DatabaseManager;
+
 import totalcross.sys.Settings;
 import totalcross.ui.*;
 import totalcross.ui.event.UpdateListener;
 import totalcross.ui.gfx.Color;
+import totalcross.ui.layout.HBox;
+import totalcross.ui.layout.VBox;
 import totalcross.util.UnitsConverter;
 import com.geiger.toolbox.model.Storage;
 
@@ -30,30 +33,80 @@ import java.util.Map;
 import java.util.MissingResourceException;
 
 
-public class DevicesScreen extends BaseScreen{
+public class DevicesScreen extends Container{
 
     int margin = UnitsConverter.toPixels(Control.DP + 10);
+    public ScrollContainer scrollContainer;
+
 
     @Override
-    public void onContent(ScrollContainer content) throws StorageException {
+    public void initUI() {
 
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.connectToDatabase();
-        StorageController storageController = databaseManager.getController();
+        scrollContainer = new ScrollContainer() {
+            @Override
+            public void initUI() {
+                setScrollBars(false, false);
+                super.initUI();
+            }
+        };
 
-        Node node1 = storageController.get(":Local");
-        NodeValue nodeValue1 = node1.getValue("currentDevice");
+        add(scrollContainer, LEFT, TOP, FILL, FILL);
+        paintUI();
+    }
 
-        System.out.println(nodeValue1);
-
-        Label lb1;
+    public void  paintUI(){
+        Label lb1, lb2;
 
         lb1 = new Label("This Device");
         lb1.setBackForeColors(Colors.WHITE,  Color.BLACK);
-        content.add(lb1, LEFT + margin, TOP + margin, PREFERRED + margin, PREFERRED);
+        scrollContainer.add(lb1, LEFT + margin, TOP + margin, PREFERRED + margin, PREFERRED);
 
-        DeviceList deviceList = new DeviceList(Model.devices);
+        DeviceList thisDevice = new DeviceList(Model.thisDeviceList, this);
 
-        content.add(deviceList, CENTER, AFTER + margin, Settings.screenWidth - margin*2, PREFERRED);
+        DeviceList deviceList = new DeviceList(Model.devices, this);
+
+        scrollContainer.add(thisDevice, LEFT + margin/2, AFTER + margin, Settings.screenWidth - margin, 90);
+
+        lb2 = new Label("Your other devices");
+        lb2.setBackForeColors(Colors.WHITE,  Color.BLACK);
+        scrollContainer.add(lb2, LEFT + margin, AFTER + margin, PREFERRED + margin, PREFERRED);
+
+        scrollContainer.add(deviceList, LEFT + margin/2, AFTER + margin, Settings.screenWidth - margin, 270);
+
+        HBox hbox = new HBox(HBox.LAYOUT_FILL, HBox.ALIGNMENT_CENTER);
+        Button pairNewDevice = new Button("Pair New Device", Button.BORDER_ROUND);
+        Button pairThisDevice = new Button("Pair This Device", Button.BORDER_ROUND);
+
+        pairNewDevice.setBackColor(Colors.PRIMARY);
+        pairNewDevice.setForeColor(Colors.TEXT_ON_P);
+        pairThisDevice.setBackColor(Colors.PRIMARY);
+        pairThisDevice.setForeColor(Colors.TEXT_ON_P);
+
+        hbox.add(pairNewDevice);
+        hbox.add(pairThisDevice);
+        hbox.setSpacing(margin);
+        scrollContainer.add(hbox, LEFT + margin/2, AFTER + margin, Settings.screenWidth, PREFERRED);
+
+        pairNewDevice.addPressListener((e) -> {
+            MaterialWindow materialWindow = new MaterialWindow("Pair a new Device", false, new Presenter<Container>() {
+                @Override
+                public Container getView(){
+                    return new PairNewDeviceScreen();
+                }
+            });
+            materialWindow.popup();
+        });
+
+        pairThisDevice.addPressListener((e) -> {
+            MaterialWindow materialWindow = new MaterialWindow("Pair this Device", false, new Presenter<Container>() {
+                @Override
+                public Container getView(){
+                    return new PairThisDeviceScreen();
+                }
+            });
+            materialWindow.popup();
+        });
     }
 }
+
+

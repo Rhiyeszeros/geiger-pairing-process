@@ -30,7 +30,7 @@ public class IndicatorGauge extends Container {
 			vel.drawValue = false;
 			vel.min = 0;	
     		vel.pointerColor = Colors.PRIMARY;
-			add(vel, RIGHT, TOP, PREFERRED + UnitsConverter.toPixels(DP + 45), PREFERRED+UnitsConverter.toPixels(DP + 45));
+			add(vel, RIGHT, TOP, PREFERRED + UnitsConverter.toPixels(DP + 25), PREFERRED+UnitsConverter.toPixels(DP + 25));
 	
 		} catch (Exception e) {
 			e.printStackTrace();
