@@ -40,15 +40,18 @@ public class DeviceListElement extends Container {
             Label lb2, lb3;
 
             Icon icon = new Icon(MaterialIcons._PHONE_ANDROID);
+            icon.transparentBackground = true;
             add(icon,LEFT, TOP + margin, PREFERRED + margin, PREFERRED);
 
             lb2 = new Label(device.getDeviceName());
             lb2.setBackForeColors(Colors.WHITE,  Color.BLACK);
+            lb2.transparentBackground = true;
             add(lb2, AFTER, TOP + margin, PREFERRED + margin, PREFERRED);
 
-            lb3 = new Label("Up to date: 2 days ago");
+            lb3 = new Label("Last updated: 2 days ago");
             lb3.setBackForeColors(Colors.WHITE,  Color.BLACK);
             lb3.setFont(nunitoItalic);
+            lb3.transparentBackground = true;
             add(lb3, LEFT, AFTER + margin, PREFERRED + margin, PREFERRED);
 
             Container cont = new Container();
