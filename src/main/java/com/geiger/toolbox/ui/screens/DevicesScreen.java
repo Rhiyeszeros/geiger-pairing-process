@@ -57,7 +57,7 @@ public class DevicesScreen extends Container{
     public void  paintUI(){
         Label lb1, lb2;
 
-        lb1 = new Label("This Device");
+        lb1 = new Label("This Device", LEFT, Color.BLACK, true);
         lb1.setBackForeColors(Colors.WHITE,  Color.BLACK);
         scrollContainer.add(lb1, LEFT + margin, TOP + margin, PREFERRED + margin, PREFERRED);
 
@@ -67,7 +67,7 @@ public class DevicesScreen extends Container{
 
         scrollContainer.add(thisDevice, LEFT + margin/2, AFTER + margin, Settings.screenWidth - margin, 90);
 
-        lb2 = new Label("Your other devices");
+        lb2 = new Label("Your other paired devices", LEFT, Color.BLACK, true);
         lb2.setBackForeColors(Colors.WHITE,  Color.BLACK);
         scrollContainer.add(lb2, LEFT + margin, AFTER + margin, PREFERRED + margin, PREFERRED);
 

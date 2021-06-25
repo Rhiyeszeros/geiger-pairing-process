@@ -66,6 +66,9 @@ public class PairThisDeviceScreen extends Container {
 
         ic.scaleToFit = true;
         ic.centerImage = true;
-        scrollContainer.add(ic, LEFT, TOP, FILL, FILL);
+        scrollContainer.add(ic, CENTER, TOP, PREFERRED, PREFERRED);
+
+        Label lb1 = new Label("To pair this device, please scan \n the QR code with your Smartphone.", CENTER);
+        scrollContainer.add(lb1, CENTER, AFTER, Settings.screenWidth - margin*2, PREFERRED);
     }
 }
