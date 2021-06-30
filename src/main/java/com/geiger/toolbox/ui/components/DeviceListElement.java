@@ -39,23 +39,24 @@ public class DeviceListElement extends Container {
         try {
             setInsets(margin, margin, margin, margin);
             Label lb2, lb3;
-            Icon icon = null;
 
             switch(device.getType()) {
                 case "Smartphone":
-                    icon = new Icon(MaterialIcons._SMARTPHONE);
+                    Icon icon = new Icon(MaterialIcons._SMARTPHONE);
+                    icon.transparentBackground = true;
+                    add(icon,LEFT, TOP + margin, PREFERRED + margin, PREFERRED);
                     break;
                 case "Laptop":
                     icon = new Icon(MaterialIcons._LAPTOP);
+                    icon.transparentBackground = true;
+                    add(icon,LEFT, TOP + margin, PREFERRED + margin, PREFERRED);
                     break;
                 case "Desktop":
                     icon = new Icon(MaterialIcons._DESKTOP_WINDOWS);
+                    icon.transparentBackground = true;
+                    add(icon,LEFT, TOP + margin, PREFERRED + margin, PREFERRED);
                     break;
             }
-
-
-            icon.transparentBackground = true;
-            add(icon,LEFT, TOP + margin, PREFERRED + margin, PREFERRED);
 
             lb2 = new Label(device.getDeviceName());
             lb2.setBackForeColors(Colors.WHITE,  Color.BLACK);
@@ -106,7 +107,6 @@ public class DeviceListElement extends Container {
 
                 if (mb.getPressedButtonIndex() == 0){
                     deviceList.remove(device);
-                    System.out.println(deviceListScrollContainer);
                     deviceListScrollContainer.removeAll();
                     deviceListScrollContainer.initUI();
                     Toast.backColor = Colors.PRIMARY;

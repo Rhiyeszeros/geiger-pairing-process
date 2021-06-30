@@ -67,6 +67,7 @@
     <orderEntry type="library" name="Maven: net.harawata:appdirs:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: net.coobird:thumbnailator:0.4.8" level="project" />
     <orderEntry type="library" name="Maven: com.totalcross.annotations:totalcross-annotations:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: eu.cyber-geiger:toolbox-communicationApi:0.0.2-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.5.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.5.6" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.4.1" level="project" />
