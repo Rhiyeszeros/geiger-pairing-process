@@ -39,8 +39,21 @@ public class DeviceListElement extends Container {
         try {
             setInsets(margin, margin, margin, margin);
             Label lb2, lb3;
+            Icon icon = null;
 
-            Icon icon = new Icon(MaterialIcons._PHONE_ANDROID);
+            switch(device.getType()) {
+                case "Smartphone":
+                    icon = new Icon(MaterialIcons._SMARTPHONE);
+                    break;
+                case "Laptop":
+                    icon = new Icon(MaterialIcons._LAPTOP);
+                    break;
+                case "Desktop":
+                    icon = new Icon(MaterialIcons._DESKTOP_WINDOWS);
+                    break;
+            }
+
+
             icon.transparentBackground = true;
             add(icon,LEFT, TOP + margin, PREFERRED + margin, PREFERRED);
 
@@ -75,6 +88,9 @@ public class DeviceListElement extends Container {
             Button button = new Button(deleteImage, Button.BORDER_ROUND);
             button.setBackColor(Colors.WHITE);
             button.setForeColor(Colors.TEXT_ON_P);
+            if (device.getDeviceName().equals("FairPhone 2")){
+                button.setVisible(false);
+            }
 
             resizeHeight();
 
