@@ -9,6 +9,7 @@ import com.geiger.toolbox.util.Colors;
 import net.sf.saxon.type.StringConverter;
 import totalcross.sys.Settings;
 import totalcross.ui.*;
+import totalcross.ui.dialog.MessageBox;
 import totalcross.ui.event.UpdateListener;
 import totalcross.ui.gfx.Color;
 import totalcross.ui.icon.Icon;
@@ -56,12 +57,12 @@ public class DeviceListElement extends Container {
 
             Container cont = new Container();
             add(cont, AFTER + margin, TOP, 70, 60);
-            IndicatorGauge indicatorGauge = new IndicatorGauge(device.getGeigerScore());
+            IndicatorGauge indicatorGauge = new IndicatorGauge(device.getScore());
             indicatorGauge.resize();
 
             cont.add(indicatorGauge, CENTER, TOP, 70, 70);
 
-            Label gaugeLabel = new Label(Integer.toString(device.getGeigerScore()));
+            Label gaugeLabel = new Label(Integer.toString(device.getScore()));
             gaugeLabel.transparentBackground = true;
             cont.add(gaugeLabel, CENTER, BOTTOM, PREFERRED, PREFERRED);
 
@@ -80,10 +81,22 @@ public class DeviceListElement extends Container {
             add(button,RIGHT, CENTER, 30, 30);
 
             button.addPressListener((e) -> {
-                deviceList.remove(device);
-                System.out.println(deviceListScrollContainer);
-                deviceListScrollContainer.removeAll();
-                deviceListScrollContainer.initUI();
+
+                MessageBox mb = new MessageBox("Do you really want to remove this device?", device.getDeviceName(), new String[]{"Remove", "Cancel"});
+                mb.setRect(CENTER, CENTER, Settings.screenWidth - margin * 2, PREFERRED);
+                mb.setBackForeColors(Colors.WHITE, Colors.PRIMARY);
+
+                mb.popup();
+
+                if (mb.getPressedButtonIndex() == 0){
+                    deviceList.remove(device);
+                    System.out.println(deviceListScrollContainer);
+                    deviceListScrollContainer.removeAll();
+                    deviceListScrollContainer.initUI();
+                    Toast.backColor = Colors.PRIMARY;
+                    Toast.show("Device unpaired successfully!", 3000);
+
+                }
             });
 
         } catch (Exception e) {

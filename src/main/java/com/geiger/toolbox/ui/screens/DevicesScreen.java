@@ -87,18 +87,20 @@ public class DevicesScreen extends Container{
         hbox.setSpacing(margin);
         scrollContainer.add(hbox, LEFT + margin/2, AFTER + margin, Settings.screenWidth, PREFERRED);
 
+        DevicesScreen j = this;
+
         pairNewDevice.addPressListener((e) -> {
-            MaterialWindow materialWindow = new MaterialWindow("Pair a new Device", false, new Presenter<Container>() {
+            MaterialWindow materialWindow = new MaterialWindow("Pair New Device", false, new Presenter<Container>() {
                 @Override
                 public Container getView(){
-                    return new PairNewDeviceScreen();
+                    return new PairNewDeviceScreen(j);
                 }
             });
             materialWindow.popup();
         });
 
         pairThisDevice.addPressListener((e) -> {
-            MaterialWindow materialWindow = new MaterialWindow("Pair this Device", false, new Presenter<Container>() {
+            MaterialWindow materialWindow = new MaterialWindow("Pair This Device", false, new Presenter<Container>() {
                 @Override
                 public Container getView(){
                     return new PairThisDeviceScreen();

@@ -1,6 +1,11 @@
 package com.geiger.toolbox.ui.screens;
 
 import com.geiger.toolbox.util.Colors;
+import com.google.zxing.*;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import totalcross.io.FileNotFoundException;
 import totalcross.sys.Settings;
 import totalcross.ui.*;
 import totalcross.ui.font.Font;
@@ -10,15 +15,17 @@ import totalcross.ui.image.ImageException;
 import totalcross.util.UnitsConverter;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+
+import javax.imageio.ImageIO;
 
 public class PairThisDeviceScreen extends Container {
 
@@ -39,7 +46,7 @@ public class PairThisDeviceScreen extends Container {
 
         add(scrollContainer, LEFT, TOP, FILL, FILL);
 
-        String text = "{'deviceName' = 'Huawei P30 Pro', 'type' = 'Smartphone', 'score' = ' 25'}";
+        String text = "{'deviceName' = 'Huawei P30 Pro', 'score' = 25, 'type' = 'Smartphone'}";
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = null;
@@ -69,6 +76,6 @@ public class PairThisDeviceScreen extends Container {
         scrollContainer.add(ic, CENTER, TOP, PREFERRED, PREFERRED);
 
         Label lb1 = new Label("To pair this device, please scan \n the QR code with your Smartphone.", CENTER);
-        scrollContainer.add(lb1, CENTER, AFTER, Settings.screenWidth - margin*2, PREFERRED);
+        scrollContainer.add(lb1, CENTER, AFTER, Settings.screenWidth - margin * 2, PREFERRED);
     }
 }
